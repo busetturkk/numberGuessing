@@ -79,14 +79,14 @@ public class GuessActivity extends AppCompatActivity {
 
                      else if (guess > randomNumber) {
 
-                          textViewHint.setText("Azaltmanız Gerekli \n(Girilen sayı küçük)");
+                          textViewHint.setText("Azaltmanız Gerekli \n(Girilen sayı büyük)");
                           textViewRemainingGuess.setText("Kalan Hak : " + tmp);
 
                       }
                       else if (guess < randomNumber) {
 
 
-                          textViewHint.setText("Arttırmanız Gerekli \n(Girilen sayı büyük)");
+                          textViewHint.setText("Arttırmanız Gerekli \n(Girilen sayı küçük)");
                           textViewRemainingGuess.setText("Kalan Hak : " + tmp);
 
 
