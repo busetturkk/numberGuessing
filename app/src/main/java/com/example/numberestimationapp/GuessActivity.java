@@ -35,65 +35,54 @@ public class GuessActivity extends AppCompatActivity {
 
         Random random=new Random();
         randomNumber=random.nextInt(101);
-        Log.e("Sonuç",String.valueOf(randomNumber));
+        Log.e("Sonuç", String.valueOf(randomNumber));
 
         buttonGuess.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 tmp--;
-
                 int guess = Integer.parseInt(editTextInput.getText().toString());
 
                 if (Integer.parseInt(editTextInput.getText().toString()) < 0 || Integer.parseInt(editTextInput.getText().toString()) > 100) {
                     Toast.makeText(getApplicationContext(), "TAHMİNİNİZ 0 - 100 ARASINDA OLMALIDIR", Toast.LENGTH_SHORT).show();
                     editTextInput.setText("");
-                }
-
-               else if (editTextInput.getText().toString().isEmpty()) {
+                } else if (editTextInput.getText().toString().isEmpty()) {
                     Toast.makeText(getApplicationContext(), "LÜTFEN TAHMİNİNİZİ GİRİNİZ", Toast.LENGTH_SHORT).show();
                     editTextInput.setText("");
                 }
 
-                else{
+                //No need to an else{} block if exceptional conditions are not met.
 
-
+                if (tmp != 0) {
                     if (guess == randomNumber) {
                         Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
                         intent.putExtra("result", true);
                         startActivity(intent);
                         finish();
                         return;
+
+                    } else if (guess > randomNumber) {
+
+                        textViewHint.setText("Azaltmanız Gerekli \n(Girilen sayı büyük)");
+                        textViewRemainingGuess.setText("Kalan Hak : " + tmp);
+                    } else if (guess < randomNumber) {
+
+                        textViewHint.setText("Arttırmanız Gerekli \n(Girilen sayı küçük)");
+                        textViewRemainingGuess.setText("Kalan Hak : " + tmp);
                     }
-
-                    else if (tmp == 0) {
-
-                            textViewHint.setText("Hakkınız Kalmadı");
-                            Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
-                            intent.putExtra("result", false);
-                            startActivity(intent);
-                            finish();
-                            return;
-
-                     }
-
-                     else if (guess > randomNumber) {
-
-                          textViewHint.setText("Azaltmanız Gerekli \n(Girilen sayı büyük)");
-                          textViewRemainingGuess.setText("Kalan Hak : " + tmp);
-
-                      }
-                      else if (guess < randomNumber) {
-
-
-                          textViewHint.setText("Arttırmanız Gerekli \n(Girilen sayı küçük)");
-                          textViewRemainingGuess.setText("Kalan Hak : " + tmp);
-
-
-                      }
-                        editTextInput.setText("");
-                    }
+                    editTextInput.setText("");
                 }
-            });
+
+                else {
+                    textViewHint.setText("Hakkınız Kalmadı");
+                    Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
+                    intent.putExtra("result", false);
+                    startActivity(intent);
+                    finish();
+                    return;
+                }
+            }
+        });
     }
 }
